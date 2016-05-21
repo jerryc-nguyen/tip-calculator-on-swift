@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B02DF601CF0A0E100D7282A /* TipCalculatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02DF5F1CF0A0E100D7282A /* TipCalculatorModel.swift */; };
+		6B02DF621CF0AA9C00D7282A /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02DF611CF0AA9C00D7282A /* StringFormatter.swift */; };
 		6B49E1FB1CEF8809004BA8FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B49E1FA1CEF8809004BA8FD /* AppDelegate.swift */; };
 		6B49E1FD1CEF8809004BA8FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B49E1FC1CEF8809004BA8FD /* ViewController.swift */; };
 		6B49E2001CEF8809004BA8FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B49E1FE1CEF8809004BA8FD /* Main.storyboard */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B02DF5F1CF0A0E100D7282A /* TipCalculatorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCalculatorModel.swift; sourceTree = "<group>"; };
+		6B02DF611CF0AA9C00D7282A /* StringFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
 		6B49E1F71CEF8809004BA8FD /* TipCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TipCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B49E1FA1CEF8809004BA8FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B49E1FC1CEF8809004BA8FD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +64,8 @@
 				6B49E2011CEF8809004BA8FD /* Assets.xcassets */,
 				6B49E2031CEF8809004BA8FD /* LaunchScreen.storyboard */,
 				6B49E2061CEF8809004BA8FD /* Info.plist */,
+				6B02DF5F1CF0A0E100D7282A /* TipCalculatorModel.swift */,
+				6B02DF611CF0AA9C00D7282A /* StringFormatter.swift */,
 			);
 			path = TipCalculator;
 			sourceTree = "<group>";
@@ -135,8 +141,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B02DF601CF0A0E100D7282A /* TipCalculatorModel.swift in Sources */,
 				6B49E1FD1CEF8809004BA8FD /* ViewController.swift in Sources */,
 				6B49E1FB1CEF8809004BA8FD /* AppDelegate.swift in Sources */,
+				6B02DF621CF0AA9C00D7282A /* StringFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

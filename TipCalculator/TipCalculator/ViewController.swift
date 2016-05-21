@@ -15,6 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var totalLabel: UILabel!
     
+    let tipCalculator = TipCalculator(billAmount: 0, tipPercent: 0)
+    let tipPercentages = [0.18, 0.2, 0.22]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,14 +31,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func onBillAmountChanged(sender: AnyObject) {
-        let tipPercentages = [0.18, 0.2, 0.22]
-        let selectTipValue = tipPercentages[tipControl.selectedSegmentIndex]
-        
-        let billAmount = NSString(string: billField.text!).doubleValue
-        let tip = billAmount * selectTipValue
-        let total = billAmount + tip
-        tipLabel.text = String(format: "%.2f", tip)
-        totalLabel.text = String(format: "%.2f", total)
+        tipCalculator.billAmount = NSString(string: billField.text!).doubleValue
+        tipCalculator.tipPercent = tipPercentages[tipControl.selectedSegmentIndex]
+        tipLabel.text = StringFormatter.formatMoneyFor(tipCalculator.tip)
+        totalLabel.text = StringFormatter.formatMoneyFor(tipCalculator.total)
     }
 
     @IBAction func onTapped(sender: UITapGestureRecognizer) {
