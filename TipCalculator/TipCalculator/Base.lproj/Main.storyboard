@@ -61,6 +61,10 @@
                                     <segment title="20%"/>
                                     <segment title="22%"/>
                                 </segments>
+                                <connections>
+                                    <action selector="onBillAmountChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Buv-4h-mIV"/>
+                                    <action selector="onBillAmountChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="g31-DX-ndA"/>
+                                </connections>
                             </segmentedControl>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="6ee-ns-NFU">
                                 <rect key="frame" x="136" y="44" width="164" height="30"/>
@@ -68,7 +72,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="onChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="6sZ-Uu-hlY"/>
+                                    <action selector="onBillAmountChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="hn4-fi-Dgk"/>
                                 </connections>
                             </textField>
                         </subviews>
@@ -80,6 +84,7 @@
                     </view>
                     <connections>
                         <outlet property="billField" destination="6ee-ns-NFU" id="Slw-jP-rYI"/>
+                        <outlet property="tipControl" destination="Dhg-RF-wEl" id="GmO-ax-0ek"/>
                         <outlet property="tipLabel" destination="V2N-Ng-VMK" id="Kd5-iX-KnL"/>
                         <outlet property="totalLabel" destination="mSg-zP-e3B" id="D41-tT-OSj"/>
                     </connections>

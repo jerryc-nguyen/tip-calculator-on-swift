@@ -9,7 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+  
+    @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var totalLabel: UILabel!
@@ -26,14 +27,15 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
-    @IBAction func onChanged(sender: AnyObject) {
+    @IBAction func onBillAmountChanged(sender: AnyObject) {
+        let tipPercentages = [0.18, 0.2, 0.22]
+        let selectTipValue = tipPercentages[tipControl.selectedSegmentIndex]
+        
         let billAmount = NSString(string: billField.text!).doubleValue
-        let tip = billAmount % 0.2
+        let tip = billAmount * selectTipValue
         let total = billAmount + tip
         tipLabel.text = String(format: "%.2f", tip)
         totalLabel.text = String(format: "%.2f", total)
-        
     }
 
     @IBAction func onTapped(sender: UITapGestureRecognizer) {
