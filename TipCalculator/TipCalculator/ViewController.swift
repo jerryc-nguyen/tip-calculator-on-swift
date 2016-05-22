@@ -21,8 +21,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        tipLabel.text = "$0.00"
-        totalLabel.text = "$0.00"
+        syncLatestDataToView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,12 +32,16 @@ class ViewController: UIViewController {
     @IBAction func onBillAmountChanged(sender: AnyObject) {
         tipCalculator.billAmount = NSString(string: billField.text!).doubleValue
         tipCalculator.tipPercent = tipPercentages[tipControl.selectedSegmentIndex]
-        tipLabel.text = StringFormatter.formatMoneyFor(tipCalculator.tip)
-        totalLabel.text = StringFormatter.formatMoneyFor(tipCalculator.total)
+        syncLatestDataToView()
     }
 
     @IBAction func onTapped(sender: UITapGestureRecognizer) {
         view.endEditing(true)
+    }
+    
+    func syncLatestDataToView() {
+        tipLabel.text = StringFormatter.formatMoneyFor(tipCalculator.tip)
+        totalLabel.text = StringFormatter.formatMoneyFor(tipCalculator.total)
     }
 }
 
