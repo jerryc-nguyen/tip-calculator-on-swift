@@ -28,11 +28,16 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        lbSelectedCurrency.text = userSettings.currencyLabel
+        syncCurrencyToView()
         sliderMinTipPercent.value = userSettings.minTipPercent
         sliderMaxTipPercent.value = userSettings.maxTipPercent
         sycMinTipPercentToView()
         sycMaxTipPercentToView()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        syncCurrencyToView()
     }
     
     @IBAction func onMinTipPercentChanged(sender: UISlider) {
@@ -53,6 +58,10 @@ class SettingsViewController: UITableViewController {
     func sycMaxTipPercentToView() {
         let maxValue = Int(sliderMaxTipPercent.value)
         lbMaxTipPercent.text = "Max tip percent: \(maxValue)%"
+    }
+    
+    func syncCurrencyToView() {
+        lbSelectedCurrency.text = userSettings.currencyLabel
     }
     
 }

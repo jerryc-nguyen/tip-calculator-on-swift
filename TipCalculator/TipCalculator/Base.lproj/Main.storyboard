@@ -249,7 +249,7 @@
         <!--Currencies-->
         <scene sceneID="yfa-bF-a35">
             <objects>
-                <tableViewController id="FYa-Xm-sgR" sceneMemberID="viewController">
+                <tableViewController id="FYa-Xm-sgR" customClass="SettingsCurrencyViewController" customModule="TipCalculator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uLp-VE-B4a">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -257,15 +257,15 @@
                         <sections>
                             <tableViewSection id="tVc-2s-mBA">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="X8C-ka-SXZ" style="IBUITableViewCellStyleDefault" id="P72-S2-C0Q">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="X8C-ka-SXZ" style="IBUITableViewCellStyleDefault" id="P72-S2-C0Q">
                                         <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P72-S2-C0Q" id="t7J-5A-Jxt">
-                                            <rect key="frame" x="0.0" y="0.0" width="281" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="VND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="X8C-ka-SXZ">
-                                                    <rect key="frame" x="15" y="0.0" width="266" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -300,6 +300,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Currencies" id="m5R-7g-Q2K"/>
+                    <connections>
+                        <outlet property="currencyTable" destination="uLp-VE-B4a" id="i1S-0v-hkS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SiC-Vx-W71" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -26,8 +26,13 @@ class UserSettingManager {
     
     var currencyLabel: String {
         get {
-            let selectedCurrency = userSettings.integerForKey(currencyKey)
-            return currencies_map[selectedCurrency]!
+            return currencies_map[selectedCurrencyIndex]!
+        }
+    }
+    
+    var selectedCurrencyIndex: Int {
+        get {
+            return userSettings.integerForKey(currencyKey)
         }
     }
     
@@ -61,5 +66,9 @@ class UserSettingManager {
     
     func updateMaxTipPercentSetting(newMaxTipPercent: Float) {
         userSettings.setFloat(newMaxTipPercent, forKey: maxTipPercentKey)
+    }
+    
+    func updateCurrencySetting(newCurrencyIndex: Int) {
+        userSettings.setInteger(newCurrencyIndex, forKey: currencyKey)
     }
 }
