@@ -8,6 +8,6 @@
 
 import UIKit
 
-class SettingsCurrencyViewController: UIViewController {
+class SettingsCurrencyViewController: UITableViewController {
 
 }

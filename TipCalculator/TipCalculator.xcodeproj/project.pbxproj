@@ -16,6 +16,7 @@
 		6B49E2001CEF8809004BA8FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B49E1FE1CEF8809004BA8FD /* Main.storyboard */; };
 		6B49E2021CEF8809004BA8FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B49E2011CEF8809004BA8FD /* Assets.xcassets */; };
 		6B49E2051CEF8809004BA8FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B49E2031CEF8809004BA8FD /* LaunchScreen.storyboard */; };
+		6B593E241CF36B8B0042E31B /* UserSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B593E231CF36B8B0042E31B /* UserSettingManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		6B49E2011CEF8809004BA8FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B49E2041CEF8809004BA8FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B49E2061CEF8809004BA8FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B593E231CF36B8B0042E31B /* UserSettingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				6B02DF611CF0AA9C00D7282A /* StringFormatter.swift */,
 				6B1E24E61CF1EDD6007AFF1F /* SettingsViewController.swift */,
 				6B1E24E81CF1F3BB007AFF1F /* SettingsCurrencyViewController.swift */,
+				6B593E231CF36B8B0042E31B /* UserSettingManager.swift */,
 			);
 			path = TipCalculator;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 				6B1E24E71CF1EDD6007AFF1F /* SettingsViewController.swift in Sources */,
 				6B1E24E91CF1F3BB007AFF1F /* SettingsCurrencyViewController.swift in Sources */,
 				6B02DF621CF0AA9C00D7282A /* StringFormatter.swift in Sources */,
+				6B593E241CF36B8B0042E31B /* UserSettingManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
