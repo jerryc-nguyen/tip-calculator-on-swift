@@ -10,28 +10,37 @@ import UIKit
 
 class ViewController: UIViewController {
   
-    @IBOutlet weak var tipControl: UISegmentedControl!
-    @IBOutlet weak var tipLabel: UILabel!
+
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var tipLabel: UILabel!
+    @IBOutlet weak var tipValueLabel: UILabel!
+    @IBOutlet weak var tipPercentSlider: UISlider!
+    
+    let userSettings = UserSettingManager()
     
     let tipCalculator = TipCalculator(billAmount: 0, tipPercent: 0)
-    let tipPercentages = [0.18, 0.2, 0.22]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         syncLatestDataToView()
+        
     }
-
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tipPercentSlider.minimumValue = userSettings.minTipPercent
+        tipPercentSlider.maximumValue = userSettings.maxTipPercent
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     @IBAction func onBillAmountChanged(sender: AnyObject) {
         tipCalculator.billAmount = NSString(string: billField.text!).doubleValue
-        tipCalculator.tipPercent = tipPercentages[tipControl.selectedSegmentIndex]
+        tipCalculator.tipPercent = Int(tipPercentSlider.value)
         syncLatestDataToView()
     }
 
@@ -40,8 +49,12 @@ class ViewController: UIViewController {
     }
     
     func syncLatestDataToView() {
-        tipLabel.text = StringFormatter.formatMoneyFor(tipCalculator.tip)
-        totalLabel.text = StringFormatter.formatMoneyFor(tipCalculator.total)
+        let selectedCurrency = userSettings.currencyLabel
+        
+        tipValueLabel.text = StringFormatter.formatMoneyWithCurrencyFor(tipCalculator.tip, currency: selectedCurrency)
+        totalLabel.text = StringFormatter.formatMoneyWithCurrencyFor(tipCalculator.total, currency: selectedCurrency)
+        let selectedTipPercent = Int(tipPercentSlider.value)
+        tipLabel.text = "Tip: \(selectedTipPercent)%"
     }
 }
 

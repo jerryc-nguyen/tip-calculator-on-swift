@@ -12,7 +12,7 @@ class TipCalculator {
     
     var billAmount: Double
     
-    var tipPercent: Double
+    var tipPercent: Int
     
     var tip: Double {
         get {
@@ -26,13 +26,13 @@ class TipCalculator {
         }
     }
     
-    init(billAmount: Double, tipPercent: Double) {
+    init(billAmount: Double, tipPercent: Int) {
         self.billAmount = billAmount
         self.tipPercent = tipPercent
     }
     
-    func calculateTipBy(tipPercent: Double) -> Double {
-        return self.billAmount * tipPercent
+    func calculateTipBy(tipPercent: Int) -> Double {
+        return self.billAmount * Double(tipPercent) / 100
     }
     
     

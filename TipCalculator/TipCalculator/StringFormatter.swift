@@ -13,8 +13,8 @@ class StringFormatter {
         return String(format: "%.2f", value)
     }
     
-    class func formatMoneyWithCurrency(value: Double, currency: String) -> String {
+    class func formatMoneyWithCurrencyFor(value: Double, currency: String) -> String {
         let formattedMoney = formatMoneyFor(value)
-        return String(format: "\(currency)%.2f", formattedMoney)
+        return "\(currency) \(formattedMoney)"
     }
 }
