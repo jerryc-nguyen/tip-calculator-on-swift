@@ -9,13 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-  
+
 
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var tipValueLabel: UILabel!
     @IBOutlet weak var tipPercentSlider: UISlider!
+    @IBOutlet weak var tipViewContainer: UIView!
     
     let userSettings = UserSettingManager()
     
@@ -23,32 +24,51 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        syncLatestDataToView()
-        
+        bindingDataToView()
+        hideTipViewController()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         tipPercentSlider.minimumValue = userSettings.minTipPercent
         tipPercentSlider.maximumValue = userSettings.maxTipPercent
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
     @IBAction func onBillAmountChanged(sender: AnyObject) {
         tipCalculator.billAmount = NSString(string: billField.text!).doubleValue
         tipCalculator.tipPercent = Int(tipPercentSlider.value)
-        syncLatestDataToView()
-    }
-
-    @IBAction func onTapped(sender: UITapGestureRecognizer) {
-        view.endEditing(true)
+        bindingDataToView()
+        
+        if tipCalculator.billAmount != 0 {
+            fadeInTipViewContainer()
+        } else {
+            fadeOutTipViewContainer()
+        }
     }
     
-    func syncLatestDataToView() {
+    func hideTipViewController() {
+        self.tipViewContainer.alpha = 0
+    }
+    
+    func showTipViewController() {
+        self.tipViewContainer.alpha = 1
+    }
+    
+    func fadeInTipViewContainer() {
+        UIView.animateWithDuration(0.4, animations: {
+            self.showTipViewController()
+            self.tipViewContainer.frame.origin.y = 150
+        })
+    }
+    
+    func fadeOutTipViewContainer() {
+        UIView.animateWithDuration(0.4, animations: {
+            self.hideTipViewController()
+            self.tipViewContainer.frame.origin.y = 200
+        })
+    }
+    
+    func bindingDataToView() {
         let selectedCurrency = userSettings.currencyLabel
         
         tipValueLabel.text = StringFormatter.formatMoneyWithCurrencyFor(tipCalculator.tip, currency: selectedCurrency)
@@ -56,5 +76,14 @@ class ViewController: UIViewController {
         let selectedTipPercent = Int(tipPercentSlider.value)
         tipLabel.text = "Tip: \(selectedTipPercent)%"
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func onTapped(sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
 }
 
