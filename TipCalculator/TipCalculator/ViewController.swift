@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     
     let tipCalculator = TipCalculator(billAmount: 0, tipPercent: 0)
     
+    let tipSliderStep: Float = 5
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bindingDataToView()
@@ -35,6 +37,16 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onBillAmountChanged(sender: AnyObject) {
+        handleBillAmountChanged()
+    }
+    
+    @IBAction func onTipPercentChanged(sender: UISlider) {
+        let roundedValue = round(sender.value / tipSliderStep) * tipSliderStep
+        sender.value = roundedValue
+        handleBillAmountChanged()
+    }
+    
+    func handleBillAmountChanged() {
         tipCalculator.billAmount = NSString(string: billField.text!).doubleValue
         tipCalculator.tipPercent = Int(tipPercentSlider.value)
         bindingDataToView()

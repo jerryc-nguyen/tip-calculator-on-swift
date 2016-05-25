@@ -25,6 +25,8 @@ class SettingsViewController: UITableViewController {
     
     let userSettings = UserSettingManager()
     
+    let tipSliderStep: Float = 5
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -41,11 +43,15 @@ class SettingsViewController: UITableViewController {
     }
     
     @IBAction func onMinTipPercentChanged(sender: UISlider) {
+        let roundedValue = round(sender.value / tipSliderStep) * tipSliderStep
+        sender.value = roundedValue
         userSettings.updateMinTipPercentSetting(sender.value)
         sycMinTipPercentToView()
     }
     
     @IBAction func onMaxTipPercentChanged(sender: UISlider) {
+        let roundedValue = round(sender.value / tipSliderStep) * tipSliderStep
+        sender.value = roundedValue
         userSettings.updateMaxTipPercentSetting(sender.value)
         sycMaxTipPercentToView()
     }
