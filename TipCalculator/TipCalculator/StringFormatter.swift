@@ -16,7 +16,7 @@ class StringFormatter {
     class func formatMoneyWithCurrencyFor(value: Double, currency: String) -> String {
         let formattedMoney = formatMoneyFor(value)
         switch currency {
-        case "VND":
+        case "đ":
             return "\(formattedMoney) \(currency)"
         default:
             return "\(currency) \(formattedMoney)"

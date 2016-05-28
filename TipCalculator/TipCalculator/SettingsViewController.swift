@@ -22,6 +22,9 @@ class SettingsViewController: UITableViewController {
     
     @IBOutlet weak var lbMaxTipPercent: UILabel!
     
+    @IBOutlet weak var themeSwitcher: UISwitch!
+    
+    @IBOutlet weak var lbSelectedTheme: UILabel!
     
     let userSettings = UserSettingManager()
     
@@ -40,6 +43,8 @@ class SettingsViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         syncCurrencyToView()
+        switchToSelectedTheme()
+        bindindThemeTypeToLabel()
     }
     
     @IBAction func onMinTipPercentChanged(sender: UISlider) {
@@ -68,6 +73,23 @@ class SettingsViewController: UITableViewController {
     
     func syncCurrencyToView() {
         lbSelectedCurrency.text = userSettings.currencyLabel
+    }
+    
+    @IBAction func onThemeSwitched(sender: UISwitch) {
+        if sender.on {
+            userSettings.updateThemeTypeSetting(0)
+        } else {
+            userSettings.updateThemeTypeSetting(1)
+        }
+        bindindThemeTypeToLabel()
+    }
+    
+    func bindindThemeTypeToLabel() {
+        lbSelectedTheme.text = userSettings.selectedThemeType
+    }
+    
+    func switchToSelectedTheme() {
+        themeSwitcher.on = userSettings.selectedThemeIndex == 0
     }
     
 }

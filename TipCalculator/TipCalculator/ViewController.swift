@@ -34,6 +34,7 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         tipPercentSlider.minimumValue = userSettings.minTipPercent
         tipPercentSlider.maximumValue = userSettings.maxTipPercent
+        checkThemeChanged()
     }
     
     @IBAction func onBillAmountChanged(sender: AnyObject) {
@@ -44,6 +45,10 @@ class ViewController: UIViewController {
         let roundedValue = round(sender.value / tipSliderStep) * tipSliderStep
         sender.value = roundedValue
         handleBillAmountChanged()
+    }
+    
+    func checkThemeChanged() {
+        print("userSettings.selectedThemeType", userSettings.selectedThemeType)
     }
     
     func handleBillAmountChanged() {

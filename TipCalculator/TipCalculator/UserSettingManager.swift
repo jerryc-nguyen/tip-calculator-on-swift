@@ -14,25 +14,38 @@ class UserSettingManager {
     let currencyKey = "settings_currency"
     let minTipPercentKey = "settings_min_tip_percent"
     let maxTipPercentKey = "settings_max_tip_percent"
+    let themeTypeKey = "settings_theme_type"
     
-    let currencies_map: [Int: String] = [
-        0: "VND",
+    let currenciesMap: [Int: String] = [
+        0: "đ",
         1: "$"
+    ]
+    
+    let themesMap: [Int: String] = [
+        0: "Light theme",
+        1: "Dark theme"
     ]
     
     let DEFAULT_CURRENCY = 1
     let DEFAULT_MIN_TIP = Float(20)
     let DEFAULT_MAX_TIP = Float(80)
+    let DEFAULT_THEME_TYPE = 0
     
     var currencyLabel: String {
         get {
-            return currencies_map[selectedCurrencyIndex]!
+            return currenciesMap[selectedCurrencyIndex]!
         }
     }
     
     var selectedCurrencyIndex: Int {
         get {
             return userSettings.integerForKey(currencyKey)
+        }
+    }
+    
+    var selectedThemeIndex: Int {
+        get {
+            return userSettings.integerForKey(themeTypeKey)
         }
     }
     
@@ -45,6 +58,12 @@ class UserSettingManager {
     var maxTipPercent: Float {
         get {
             return userSettings.floatForKey(maxTipPercentKey)
+        }
+    }
+    
+    var selectedThemeType: String {
+        get {
+            return themesMap[selectedThemeIndex]!
         }
     }
     
@@ -71,4 +90,9 @@ class UserSettingManager {
     func updateCurrencySetting(newCurrencyIndex: Int) {
         userSettings.setInteger(newCurrencyIndex, forKey: currencyKey)
     }
+    
+    func updateThemeTypeSetting(newThemeIndex: Int) {
+        userSettings.setInteger(newThemeIndex, forKey: themeTypeKey)
+    }
+    
 }
