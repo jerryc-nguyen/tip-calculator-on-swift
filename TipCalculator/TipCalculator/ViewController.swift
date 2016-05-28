@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipValueLabel: UILabel!
     @IBOutlet weak var tipPercentSlider: UISlider!
     @IBOutlet weak var tipViewContainer: UIView!
+    @IBOutlet weak var lbPlusSign: UILabel!
+    @IBOutlet weak var lbEqualSize: UILabel!
     
     let userSettings = UserSettingManager()
     
@@ -28,6 +30,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         bindingDataToView()
         hideTipViewController()
+        switchToLightTheme()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -48,7 +51,37 @@ class ViewController: UIViewController {
     }
     
     func checkThemeChanged() {
-        print("userSettings.selectedThemeType", userSettings.selectedThemeType)
+        if userSettings.selectedThemeIndex == 0 {
+            switchToLightTheme()
+        } else {
+            switchToDarkTheme()
+        }
+    }
+    
+    func switchToLightTheme() {
+        UIView.animateWithDuration(0.4, animations: {
+            self.view.backgroundColor = UIColor(red: 0.2314, green: 0.8941, blue: 0.9294, alpha: 1.0)
+            self.tipViewContainer.backgroundColor = UIColor(red: 0.6784, green: 0.9686, blue: 0.9686, alpha: 1.0)
+            let textColor = UIColor.blackColor()
+            self.changeTipLabelsColorTo(textColor)
+        })
+    }
+    
+    func switchToDarkTheme() {
+        UIView.animateWithDuration(0.4, animations: {
+            self.view.backgroundColor = UIColor(red: 0, green: 0.4078, blue: 0.5098, alpha: 1.0)
+            self.tipViewContainer.backgroundColor = UIColor(red: 0, green: 0.7373, blue: 0.8196, alpha: 1.0)
+            let textColor = UIColor.whiteColor()
+            self.changeTipLabelsColorTo(textColor)
+        })
+    }
+    
+    func changeTipLabelsColorTo(color: UIColor) {
+        self.totalLabel.textColor = color
+        self.tipLabel.textColor = color
+        self.tipValueLabel.textColor = color
+        self.lbPlusSign.textColor = color
+        self.lbEqualSize.textColor = color
     }
     
     func handleBillAmountChanged() {
@@ -58,8 +91,10 @@ class ViewController: UIViewController {
         
         if tipCalculator.billAmount != 0 {
             fadeInTipViewContainer()
+            moveBillFieldUp()
         } else {
             fadeOutTipViewContainer()
+            moveBillFieldDown()
         }
     }
     
@@ -75,6 +110,18 @@ class ViewController: UIViewController {
         UIView.animateWithDuration(0.4, animations: {
             self.showTipViewController()
             self.tipViewContainer.frame.origin.y = 150
+        })
+    }
+    
+    func moveBillFieldUp() {
+        UIView.animateWithDuration(0.4, animations: {
+            self.billField.frame.origin.y = 110
+        })
+    }
+    
+    func moveBillFieldDown() {
+        UIView.animateWithDuration(0.4, animations: {
+            self.billField.frame.origin.y = 180
         })
     }
     
