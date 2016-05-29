@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     let tipSliderStep: Float = 5
     
-    let numberOfUsers = 3
+    let numberOfUsers = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +77,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         } else {
             switchToDarkTheme()
         }
+        
+        billField.attributedPlaceholder = NSAttributedString(string:"Bill amount",
+                                                             attributes:[NSForegroundColorAttributeName: UIColor.whiteColor()])
+        
     }
     
     func switchToLightTheme() {
@@ -163,7 +167,6 @@ class ViewController: UIViewController, UITableViewDataSource {
         let selectedTipPercent = Int(tipPercentSlider.value)
         tipLabel.text = "Tip: \(selectedTipPercent)%"
     }
-    
     
     
     override func didReceiveMemoryWarning() {
