@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var totalLabel: UILabel!
@@ -19,6 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipViewContainer: UIView!
     @IBOutlet weak var lbPlusSign: UILabel!
     @IBOutlet weak var lbEqualSize: UILabel!
+    @IBOutlet weak var tblUsersAmount: UITableView!
+    
     
     let userSettings = UserSettingManager()
     
@@ -26,11 +27,16 @@ class ViewController: UIViewController {
     
     let tipSliderStep: Float = 5
     
+    let numberOfUsers = 3
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bindingDataToView()
         hideTipViewController()
         switchToLightTheme()
+        
+        self.tblUsersAmount.registerClass(UITableViewCell.self, forCellReuseIdentifier: "tblUserAmountCell")
+        self.tblUsersAmount.dataSource = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -38,6 +44,21 @@ class ViewController: UIViewController {
         tipPercentSlider.minimumValue = userSettings.minTipPercent
         tipPercentSlider.maximumValue = userSettings.maxTipPercent
         checkThemeChanged()
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return numberOfUsers
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "tblUserAmountCell")
+        
+        let userCurrentCount = indexPath.row + 1
+        let userLabel = userCurrentCount == 1 ? "person" : "people"
+        let currentPerUserAmount = tipCalculator.total / Double(userCurrentCount)
+        cell.textLabel?.text = "\(userCurrentCount) \(userLabel)"
+        cell.detailTextLabel?.text = StringFormatter.formatMoneyWithCurrencyFor(currentPerUserAmount, currency: userSettings.currencyLabel)
+        return cell
     }
     
     @IBAction func onBillAmountChanged(sender: AnyObject) {
@@ -96,6 +117,8 @@ class ViewController: UIViewController {
             fadeOutTipViewContainer()
             moveBillFieldDown()
         }
+        
+        tblUsersAmount.reloadData()
     }
     
     func hideTipViewController() {
@@ -140,6 +163,8 @@ class ViewController: UIViewController {
         let selectedTipPercent = Int(tipPercentSlider.value)
         tipLabel.text = "Tip: \(selectedTipPercent)%"
     }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
