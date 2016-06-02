@@ -1,4 +1,4 @@
-# Pre-work - *Prework assignment for CoderSchool iOS in Swift*
+# Pre-work - *for CoderSchool iOS in Swift*
 
 **Tip Calculator on swift** is a tip calculator application for iOS.
 
