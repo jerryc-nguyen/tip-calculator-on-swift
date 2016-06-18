@@ -106,9 +106,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="XVa-ZI-UPA" appends="YES" id="9WA-5c-eNV"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Tip Calculator" id="RoU-NS-1Ur">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="vXr-tA-e3v">
@@ -130,11 +127,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="XVa-ZI-UPA">
-                    <connections>
-                        <action selector="onTapped:" destination="BYZ-38-t0r" id="IiD-qC-koR"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="XVa-ZI-UPA"/>
             </objects>
             <point key="canvasLocation" x="1060" y="280"/>
         </scene>
@@ -288,58 +281,28 @@
         <scene sceneID="yfa-bF-a35">
             <objects>
                 <tableViewController id="FYa-Xm-sgR" customClass="SettingsCurrencyViewController" customModule="TipCalculator" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uLp-VE-B4a">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="dDJ-VN-bZ5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <sections>
-                            <tableViewSection id="tVc-2s-mBA">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="X8C-ka-SXZ" style="IBUITableViewCellStyleDefault" id="P72-S2-C0Q">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P72-S2-C0Q" id="t7J-5A-Jxt">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="đ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="X8C-ka-SXZ">
-                                                    <rect key="frame" x="15" y="0.0" width="290" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" editingAccessoryType="checkmark" textLabel="1sC-xH-aEx" style="IBUITableViewCellStyleDefault" id="FJg-5z-iD3">
-                                        <rect key="frame" x="0.0" y="108" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FJg-5z-iD3" id="hc1-k5-dSd">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1sC-xH-aEx">
-                                                    <rect key="frame" x="15" y="0.0" width="290" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tblCountryCell" id="h2P-6S-quA">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h2P-6S-quA" id="Jvf-JO-j73">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="FYa-Xm-sgR" id="SMJ-1b-GDX"/>
-                            <outlet property="delegate" destination="FYa-Xm-sgR" id="ncH-wZ-pnM"/>
+                            <outlet property="dataSource" destination="FYa-Xm-sgR" id="jUC-Qq-TbJ"/>
+                            <outlet property="delegate" destination="FYa-Xm-sgR" id="G7X-TI-gnv"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Currencies" id="m5R-7g-Q2K"/>
                     <connections>
-                        <outlet property="currencyTable" destination="uLp-VE-B4a" id="i1S-0v-hkS"/>
+                        <outlet property="tblCountries" destination="dDJ-VN-bZ5" id="b9r-Qn-utP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SiC-Vx-W71" userLabel="First Responder" sceneMemberID="firstResponder"/>

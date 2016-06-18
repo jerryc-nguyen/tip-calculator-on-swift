@@ -168,12 +168,11 @@ class ViewController: UIViewController, UITableViewDataSource {
         tipLabel.text = "Tip: \(selectedTipPercent)%"
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func onTapped(sender: UITapGestureRecognizer) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         view.endEditing(true)
     }
     
