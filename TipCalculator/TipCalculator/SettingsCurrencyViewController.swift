@@ -8,33 +8,52 @@
 
 import UIKit
 
-class SettingsCurrencyViewController: UITableViewController {
+class SettingsCurrencyViewController: UIViewController, UITableViewDataSource {
     
     let userSettings = UserSettingManager()
-    
-    @IBOutlet var currencyTable: UITableView!
+
+
+    @IBOutlet var tblCountries: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tblCountries.registerClass(UITableViewCell.self, forCellReuseIdentifier: "tblCountryCell")
+        self.tblCountries.dataSource = self
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return userSettings.settingsCountries.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "tblCountryCell")
+        let currentDisplayCountry = self.userSettings.settingsCountries[indexPath.row]
+        
+        cell.textLabel?.text = currentDisplayCountry.countryName
+        cell.detailTextLabel?.text = currentDisplayCountry.countryCurrency
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == userSettings.selectedCurrencyIndex {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         uncheckAllCells()
         let selectedIndex = indexPath.row
-        currencyTable.cellForRowAtIndexPath(indexPath)!.accessoryType = UITableViewCellAccessoryType.Checkmark
+        tblCountries.cellForRowAtIndexPath(indexPath)!.accessoryType = UITableViewCellAccessoryType.Checkmark
         userSettings.updateCurrencySetting(selectedIndex)
     }
     
     func uncheckAllCells() {
-        for cell in currencyTable.visibleCells {
+        for cell in tblCountries.visibleCells {
             cell.accessoryType = UITableViewCellAccessoryType.None
         }
     }
+    
     
 }

@@ -8,6 +8,13 @@
 
 import Foundation
 
+struct Locale {
+    let countryLocaleId: String
+    let countryCode: String
+    let countryName: String
+    let countryCurrency: String
+}
+
 class UserSettingManager {
     let userSettings = NSUserDefaults.standardUserDefaults()
     
@@ -16,10 +23,27 @@ class UserSettingManager {
     let maxTipPercentKey = "settings_max_tip_percent"
     let themeTypeKey = "settings_theme_type"
     
-    let currenciesMap: [Int: String] = [
-        0: "đ",
-        1: "$"
-    ]
+    let settingsCountries = NSLocale
+        .availableLocaleIdentifiers()
+        .map { NSLocale(localeIdentifier: $0) }
+        .filter {
+            let localeCurrencyCode = $0.objectForKey(NSLocaleCountryCode)
+            
+            if localeCurrencyCode != nil {
+                let countryCodeStr = localeCurrencyCode as! String
+                return NSLocale.ISOCountryCodes().indexOf(countryCodeStr) != nil
+            } else {
+                return false
+            }
+        }
+        .map {
+            Locale(
+                countryLocaleId: $0.localeIdentifier,
+                countryCode: $0.objectForKey(NSLocaleCountryCode) as! String,
+                countryName: NSLocale.systemLocale().displayNameForKey(NSLocaleCountryCode, value: $0.objectForKey(NSLocaleCountryCode) as! String)!,
+                countryCurrency: $0.objectForKey(NSLocaleCurrencySymbol) as! String
+            )
+    }
     
     let themesMap: [Int: String] = [
         0: "Light theme",
@@ -33,7 +57,7 @@ class UserSettingManager {
     
     var currencyLabel: String {
         get {
-            return currenciesMap[selectedCurrencyIndex]!
+            return settingsCountries[selectedCurrencyIndex].countryCurrency
         }
     }
     
