@@ -57,7 +57,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         let userLabel = userCurrentCount == 1 ? "person" : "people"
         let currentPerUserAmount = tipCalculator.total / Double(userCurrentCount)
         cell.textLabel?.text = "\(userCurrentCount) \(userLabel)"
-        cell.detailTextLabel?.text = StringFormatter.formatMoneyWithCurrencyFor(currentPerUserAmount, currency: userSettings.currencyLabel)
+        cell.detailTextLabel?.text = StringFormatter.formatMoneyWithCurrencyFor(currentPerUserAmount, countryLocaleId: userSettings.selectedCountryLocaleId)
         return cell
     }
     
@@ -160,10 +160,8 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func bindingDataToView() {
-        let selectedCurrency = userSettings.currencyLabel
-        
-        tipValueLabel.text = StringFormatter.formatMoneyWithCurrencyFor(tipCalculator.tip, currency: selectedCurrency)
-        totalLabel.text = StringFormatter.formatMoneyWithCurrencyFor(tipCalculator.total, currency: selectedCurrency)
+        tipValueLabel.text = StringFormatter.formatMoneyWithCurrencyFor(tipCalculator.tip, countryLocaleId: userSettings.selectedCountryLocaleId)
+        totalLabel.text = StringFormatter.formatMoneyWithCurrencyFor(tipCalculator.total, countryLocaleId: userSettings.selectedCountryLocaleId)
         let selectedTipPercent = Int(tipPercentSlider.value)
         tipLabel.text = "Tip: \(selectedTipPercent)%"
     }

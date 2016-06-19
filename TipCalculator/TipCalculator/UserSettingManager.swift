@@ -41,6 +41,12 @@ class UserSettingManager {
         }
     }
     
+    var selectedCountryLocaleId: String {
+        get {
+            return countriesMap[selectedCountryCode]!.countryLocaleId
+        }
+    }
+    
     var selectedCountryCode: String {
         get {
             return userSettings.stringForKey(currencyKey)!

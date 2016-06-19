@@ -9,18 +9,10 @@
 import Foundation
 
 class StringFormatter {
-    class func formatMoneyFor(value: Double) -> String {
-        return String(format: "%.2f", value)
-    }
-    
-    class func formatMoneyWithCurrencyFor(value: Double, currency: String) -> String {
-        let formattedMoney = formatMoneyFor(value)
-        switch currency {
-        case "đ":
-            return "\(formattedMoney) \(currency)"
-        default:
-            return "\(currency) \(formattedMoney)"
-        }
-        
+    class func formatMoneyWithCurrencyFor(value: Double, countryLocaleId: String) -> String {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyAccountingStyle
+        formatter.locale = NSLocale(localeIdentifier: countryLocaleId)
+        return formatter.stringFromNumber(value)!
     }
 }
