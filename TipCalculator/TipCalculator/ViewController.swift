@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var totalLabel: UILabel!
@@ -41,6 +41,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         self.tblUsersAmount.registerClass(UITableViewCell.self, forCellReuseIdentifier: "tblUserAmountCell")
         self.tblUsersAmount.dataSource = self
+        
+        self.billField.becomeFirstResponder()
+        
+        self.billField.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -69,7 +73,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
-    @IBAction func onBillAmountChanged(sender: AnyObject) {
+    @IBAction func onBillAmountChanged(sender: UITextField) {
         handleBillAmountChanged()
     }
     
@@ -181,6 +185,23 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         view.endEditing(true)
+    }
+    
+    //validation input field: only accept valid integer number
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool { // return false to not change text
+  
+        if string.characters.count == 0 { //for delete key!
+            return true
+        }
+        
+        switch string {
+        case "1","2","3","4","5","6","7","8","9":
+            return true
+        case "0":
+            return billField.text!.characters.count != 0
+        default:
+            return false
+        }
     }
     
 }
