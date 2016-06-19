@@ -22,28 +22,8 @@ class UserSettingManager {
     let minTipPercentKey = "settings_min_tip_percent"
     let maxTipPercentKey = "settings_max_tip_percent"
     let themeTypeKey = "settings_theme_type"
-    
-    let settingsCountries = NSLocale
-        .availableLocaleIdentifiers()
-        .map { NSLocale(localeIdentifier: $0) }
-        .filter {
-            let localeCurrencyCode = $0.objectForKey(NSLocaleCountryCode)
-            
-            if localeCurrencyCode != nil {
-                let countryCodeStr = localeCurrencyCode as! String
-                return NSLocale.ISOCountryCodes().indexOf(countryCodeStr) != nil
-            } else {
-                return false
-            }
-        }
-        .map {
-            Locale(
-                countryLocaleId: $0.localeIdentifier,
-                countryCode: $0.objectForKey(NSLocaleCountryCode) as! String,
-                countryName: NSLocale.systemLocale().displayNameForKey(NSLocaleCountryCode, value: $0.objectForKey(NSLocaleCountryCode) as! String)!,
-                countryCurrency: $0.objectForKey(NSLocaleCurrencySymbol) as! String
-            )
-    }
+
+    var countriesMap = [String: Locale]()
     
     let themesMap: [Int: String] = [
         0: "Light theme",
@@ -57,13 +37,13 @@ class UserSettingManager {
     
     var currencyLabel: String {
         get {
-            return settingsCountries[selectedCurrencyIndex].countryCurrency
+            return countriesMap[selectedCountryCode]!.countryCurrency
         }
     }
     
-    var selectedCurrencyIndex: Int {
+    var selectedCountryCode: String {
         get {
-            return userSettings.integerForKey(currencyKey)
+            return userSettings.stringForKey(currencyKey)!
         }
     }
     
@@ -92,6 +72,9 @@ class UserSettingManager {
     }
     
     init() {
+        
+        buildCountriesMap()
+        
         let updatedMinTip = userSettings.floatForKey(minTipPercentKey)
         if updatedMinTip == 0 {
             userSettings.setFloat(DEFAULT_MIN_TIP, forKey: minTipPercentKey)
@@ -103,6 +86,36 @@ class UserSettingManager {
         }
     }
     
+    func buildCountriesMap() {
+        let locales = NSLocale
+            .availableLocaleIdentifiers()
+            .map { NSLocale(localeIdentifier: $0) }
+            .filter {
+                let localeCurrencyCode = $0.objectForKey(NSLocaleCountryCode)
+                
+                if localeCurrencyCode != nil {
+                    let countryCodeStr = localeCurrencyCode as! String
+                    let countryCurrency = $0.objectForKey(NSLocaleCurrencySymbol) as! String
+                    return NSLocale.ISOCountryCodes().indexOf(countryCodeStr) != nil && countryCurrency.characters.count == 1
+                } else {
+                    return false
+                }
+            }
+            .map {
+                Locale(
+                    countryLocaleId: $0.localeIdentifier,
+                    countryCode: $0.objectForKey(NSLocaleCountryCode) as! String,
+                    countryName: NSLocale.systemLocale().displayNameForKey(NSLocaleCountryCode, value: $0.objectForKey(NSLocaleCountryCode) as! String)!,
+                    countryCurrency: $0.objectForKey(NSLocaleCurrencySymbol) as! String
+                )
+        }.sort({ $0.countryName < $1.countryName })
+        
+        
+        for country in locales {
+            countriesMap[country.countryCode] = country
+        }
+    }
+    
     func updateMinTipPercentSetting(newMinTipPercent: Float) {
         userSettings.setFloat(newMinTipPercent, forKey: minTipPercentKey)
     }
@@ -111,8 +124,8 @@ class UserSettingManager {
         userSettings.setFloat(newMaxTipPercent, forKey: maxTipPercentKey)
     }
     
-    func updateCurrencySetting(newCurrencyIndex: Int) {
-        userSettings.setInteger(newCurrencyIndex, forKey: currencyKey)
+    func updateCurrencySetting(countryCode: String) {
+        userSettings.setValue(countryCode, forKey: currencyKey)
     }
     
     func updateThemeTypeSetting(newThemeIndex: Int) {
