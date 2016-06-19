@@ -31,9 +31,13 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        displaySavedBillAmount()
+        
         bindingDataToView()
         hideTipViewController()
         switchToLightTheme()
+        handleBillAmountChanged()
         
         self.tblUsersAmount.registerClass(UITableViewCell.self, forCellReuseIdentifier: "tblUserAmountCell")
         self.tblUsersAmount.dataSource = self
@@ -44,6 +48,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         tipPercentSlider.minimumValue = userSettings.minTipPercent
         tipPercentSlider.maximumValue = userSettings.maxTipPercent
         checkThemeChanged()
+    }
+    
+    func displaySavedBillAmount() {
+        self.billField.text = userSettings.savedBillAmount
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -117,6 +125,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         if tipCalculator.billAmount != 0 {
             fadeInTipViewContainer()
             moveBillFieldUp()
+            userSettings.updateBillAmount(billField.text!)
         } else {
             fadeOutTipViewContainer()
             moveBillFieldDown()

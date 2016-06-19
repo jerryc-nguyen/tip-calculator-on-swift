@@ -22,7 +22,9 @@ class UserSettingManager {
     let minTipPercentKey = "settings_min_tip_percent"
     let maxTipPercentKey = "settings_max_tip_percent"
     let themeTypeKey = "settings_theme_type"
-
+    let lastSavedBilledAmountAtKey = "settings_last_saved_billed_amount_at"
+    let billAmountKey = "settings_bill_amount_key"
+    
     var countriesMap = [String: Locale]()
     
     let themesMap: [Int: String] = [
@@ -74,6 +76,20 @@ class UserSettingManager {
     var selectedThemeType: String {
         get {
             return themesMap[selectedThemeIndex]!
+        }
+    }
+    
+    var savedBillAmount: String {
+        get {
+            let lastSavedAt = userSettings.doubleForKey(lastSavedBilledAmountAtKey)
+            let timeDiff = NSDate().timeIntervalSince1970 - lastSavedAt
+            let timeThresholdSecond = Double(10 * 60)
+            
+            if timeDiff > timeThresholdSecond {
+                return ""
+            } else {
+                return userSettings.stringForKey(billAmountKey)!
+            }
         }
     }
     
@@ -136,6 +152,16 @@ class UserSettingManager {
     
     func updateThemeTypeSetting(newThemeIndex: Int) {
         userSettings.setInteger(newThemeIndex, forKey: themeTypeKey)
+    }
+    
+    func updateLastSavedBilledAmountAt() {
+        let interval = NSDate().timeIntervalSince1970
+        userSettings.setDouble(interval, forKey: lastSavedBilledAmountAtKey)
+    }
+    
+    func updateBillAmount(billAmount: String) {
+        userSettings.setValue(billAmount, forKey: billAmountKey)
+        updateLastSavedBilledAmountAt()
     }
     
 }
